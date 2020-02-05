@@ -1,6 +1,6 @@
 const express = require("express");
 const next = require("next");
-
+const cors = require('cors');
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -11,7 +11,7 @@ app
   .then(() => {
     const server = express();
     server.use(bodyParser.json());
-
+    server.use(cors());
     server.get("*", (req, res) => {
       console.log("servidor rodando - get", req.body);
       return handle(req, res);
